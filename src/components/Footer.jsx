@@ -77,7 +77,7 @@ export default function Footer() {
         </Box>
         <Container as={Stack} maxW={"6xl"} pt={10} pb={2}>
           <SimpleGrid
-            columns={{ base: 1, md: 2, lg: 3 }}
+            columns={{ base: 1, md: 2, lg: 4 }}
             // spacing={8}
             spacingY="8px"
           >
@@ -85,10 +85,17 @@ export default function Footer() {
 
             {/* <SimpleGrid columns={{ base: 1, md: 3 }}> */}
             <Stack align={"flex-start"}>
-              <ListHeader style={{ color: "#436131" }}>Quick Links</ListHeader>
+            <Stack
+                ml={{ md: "50%" }}
+                align={{ md: "flex-start", base: "center" }}
+              >
+                <ListHeader style={{ color: "text.500" }}>
+                  Quick Links
+                </ListHeader>
+              </Stack>
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/"}
               >
@@ -96,7 +103,7 @@ export default function Footer() {
               </Link>
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/shop"}
               >
@@ -104,7 +111,7 @@ export default function Footer() {
               </Link>
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/inspire-and-support"}
               >
@@ -112,7 +119,7 @@ export default function Footer() {
               </Link>
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/store-locator"}
               >
@@ -121,15 +128,18 @@ export default function Footer() {
 
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/about-us"}
               >
                 About Us
               </Link>
+              </Stack>
+              <Stack align={"flex-start"} >
+              {!isMobile && <ListHeader>&nbsp;</ListHeader>}
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/contact-us"}
               >
@@ -137,7 +147,7 @@ export default function Footer() {
               </Link>
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/faq"}
               >
@@ -145,7 +155,7 @@ export default function Footer() {
               </Link>
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/shipping-policy"}
               >
@@ -153,7 +163,7 @@ export default function Footer() {
               </Link>
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/terms-and-conditions"}
               >
@@ -162,7 +172,7 @@ export default function Footer() {
 
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 as={RouterLink}
                 to={"/return-and-refund-policy"}
               >
@@ -177,7 +187,7 @@ export default function Footer() {
               <ListHeader align={"flex-start"}>Customer Support</ListHeader>
               <Link
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 target="_blank"
                 href={"tel:917405095969"}
                 display={"flex"}
@@ -194,7 +204,7 @@ export default function Footer() {
                 display={"flex"}
                 flexDirection={"row"}
                 textDecoration="none"
-                _hover={{ color: "text.500" }}
+                _hover={{ color: "text.300" }}
                 target="_blank"
                 // alignItems={"center"}
                 href={"mailto:care@suryanorganic.com"}

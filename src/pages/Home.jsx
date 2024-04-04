@@ -66,19 +66,20 @@ const new_arrival_gir_gauveda = [
 
 const imageInfo = [
   {
-    src: "https://www.swastikam.com/web/image/887314/non.png",
+    src: "./Swastikam/Home/non (1).png",
+    alt:"image"
   },
   {
-    src: "https://www.swastikam.com/web/image/887315/natural.png",
+    src: "./Swastikam/Home/natural (1).png",
   },
   {
-    src: "https://www.swastikam.com/web/image/887313/quality.png",
+    src: "./Swastikam/Home/quality (1).png",
   },
+  // {
+  //   src: "./Swastikam/Home/delivery.png",
+  // },
   {
-    src: "https://www.swastikam.com/web/image/887316/delivery.png",
-  },
-  {
-    src: "https://www.swastikam.com/web/image/887317/service.png",
+    src: "./Swastikam/Home/service (1).png",
   },
 
 ];
@@ -234,13 +235,12 @@ export default function Home() {
 
     
       {/* <Testimonials /> */}
-      <Container backgroundColor={"bg.500"} maxW={"container.xl"} py={2}>
+      <Container backgroundColor={"bg.100"} maxW={"container.xl"} py={2}>
         <SimpleGrid
           columns={[2, 3, null, 4]}
           px={6}
           maxW={"container.xl"}
           my={6}
-          backgroundColor={"bg.500"}
           align="center"
           spacingX={{ base: "10vw", md: "30px" }}
           spacingY="40px"
@@ -274,24 +274,26 @@ export default function Home() {
 
         </SimpleGrid>
       </Container>
-      <Container maxW={{ base: "100vw", md: "container.xl" }}>
+      <Container maxW={{ base: "100vw", md: "5xl" }} >
+        {/* <Image w={"5xl"} mx={"auto"} mt={8} src={"./Swastikam/Home/swastikam.jpg"} /> */}
 
         <Grid
           templateColumns={{
             base: "repeat(2, 1fr)",
             md: "repeat(2, 1fr)",
-            lg: "repeat(5,1fr)",
+            lg: "repeat(4,1fr)",
           }}
-          gap={2}
+          gap={3}
           my={6}
-          mx={{ md: "15%", base: 3 }}
+         
+         
         >
           {imageInfo?.map((data) => (
             <GridItem>
               <Flex
                 flexDirection={"column"}
                 alignItems={"center"}
-                justifyContent={"center"}
+               
                 pt={10}
               >
                 <LazyLoadImage
@@ -301,12 +303,12 @@ export default function Home() {
                     transform: "scale(1.25)",
                   }}
                   src={data.src}
-                  alt=""
+                  alt={data.alt}
 
                   style={{
                     opacity: 1,
                     transition: "opacity 0.7s",
-                    width: "130px",
+                    width: "120px",
                     // Note the corrected syntax here
                   }}
                 />
@@ -317,6 +319,8 @@ export default function Home() {
             </GridItem>
           ))}
         </Grid>
+        </Container>
+        <Container maxW={{ base: "100vw", md: "container.xl" }} >
         <Box
           w="100%"
           // backgroundImage={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/HomePage/line.png"}

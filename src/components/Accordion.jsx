@@ -22,7 +22,7 @@ export default function accordion({ details }) {
               <h2>
                 <AccordionButton
                   bg="bg.500"
-                  color="brand.900"
+                  color="#fff"
                   _hover={{ bg: "bg.500" }}
                 >
                   {isExpanded ? (

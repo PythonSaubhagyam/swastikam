@@ -58,16 +58,12 @@ const new_arrival_gir_gauveda = [
     src: "Katch kesar Mango",
     name: "Therapy Oil Meditation",
   },
-
-]
-
-
-
+];
 
 const imageInfo = [
   {
     src: "./Swastikam/Home/non (1).png",
-    alt:"image"
+    alt: "image",
   },
   {
     src: "./Swastikam/Home/natural (1).png",
@@ -81,9 +77,7 @@ const imageInfo = [
   {
     src: "./Swastikam/Home/service (1).png",
   },
-
 ];
-
 
 export default function Home() {
   const [isFullScreen] = useMediaQuery("(min-width: 768px)");
@@ -123,7 +117,6 @@ export default function Home() {
 
   return (
     <>
-
       <Navbar />
       <Container mb={5} px={0} maxW={"container.xl"} centerContent>
         <LazyLoadImage
@@ -138,28 +131,44 @@ export default function Home() {
         />
       </Container>
 
-      <Container maxW={"container.xl"} centerContent pt={12} >
-        <Grid templateColumns={{
-          base: "repeat(1, 1fr)",
-          md: "repeat(2, 1fr)",
-
-        }}>
-          <GridItem >
-            <Image src="./Swastikam/Home/Incense_Hands_sq.jpg" alt="" w={"90%"} />
+      <Container maxW={"6xl"} centerContent pt={12}>
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+          }}
+        >
+          <GridItem>
+            <Image
+              src="./Swastikam/Home/Incense_Hands_sq.jpg"
+              alt=""
+              
+            />
           </GridItem>
           <GridItem>
             <Heading>स्वस्तिकम</Heading>
-            <Text color={"#000000"} fontSize={"19px"} align={"justify"} mt={2}>
-              Burning agarbatti (incense), dhoop and conducting vedic havans <br />(sacrificial fire rituals) has been practiced in Bharat since thousands<br /> of years. These practices are known to create an ideal environment <br /> for worship, cleanse subtler energies, attract positive energies and <br /> repel negative one's. In fact, not just in Bharat but throughout the  <br /> world in ancient cultures herbal smoke has been an important part of <br /> worship as well as medicine. However, it is in the current century that <br /> modern research has been able to understand the scientific basis of <br /> such practices. Without going into its metaphysical & spiritual <br /> aspects, here we will discuss the physical benefits of lighting incense, <br /> dhoop and conducting havans.
+            <Text color={"#000000"} fontSize={"17px"} align={"justify"} mt={2}>
+              Burning agarbatti (incense), dhoop and conducting vedic havans
+              (sacrificial fire rituals) has been practiced in Bharat since
+              thousands of years. These practices are known to create an ideal
+              environment for worship, cleanse subtler energies, attract
+              positive energies and repel negative one's. In fact, not just in
+              Bharat but throughout the world in ancient cultures herbal smoke
+              has been an important part of worship as well as medicine.
+              However, it is in the current century that modern research has
+              been able to understand the scientific basis of such practices.
+              Without going into its metaphysical & spiritual aspects, here we
+              will discuss the physical benefits of lighting incense,dhoop and
+              conducting havans.
             </Text>
             <Button
-              mt={8}
+              mt={6}
               variant={"outline"}
               color="brand.500"
               borderColor={"brand.500"}
-              onClick={()=>navigate("/about-us")}
-              size={"lg"}
-              _hover={{ color: "white",bgColor:"brand.500" }}
+              onClick={() => navigate("/about-us")}
+              size={"md"}
+              _hover={{ color: "white", bgColor: "brand.500" }}
             >
               Read More
             </Button>
@@ -177,7 +186,6 @@ export default function Home() {
       <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
         <LazyLoadImage
           src={"./Swastikam/Home/middle banner.jpg"}
-
           alt=""
           style={{
             opacity: 1,
@@ -210,18 +218,19 @@ export default function Home() {
           ))}
           </Grid>
           </Container> */}
-     
-     <ProductListSection
-     title=""
-     loading={loading}
-     products={new_arrival_gir_gauveda}
-     />
+
+      <ProductListSection
+        title=""
+        loading={loading}
+        products={new_arrival_gir_gauveda}
+      />
 
       <Container maxW={"container.xl"} px={12} centerContent>
-        <Grid templateColumns={{
-          base: "repeat(1, 1fr)",
-          md: "repeat(2, 1fr)",
-        }} 
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+          }}
         >
           <GridItem>
             <Image src="./Swastikam/Home/therapy oil.png" alt="" />
@@ -233,7 +242,6 @@ export default function Home() {
         </Grid>
       </Container>
 
-    
       {/* <Testimonials /> */}
       <Container backgroundColor={"bg.100"} maxW={"container.xl"} py={2}>
         <SimpleGrid
@@ -249,78 +257,47 @@ export default function Home() {
             <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
               39+
             </StatNumber>
-            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>Natural Products</StatHelpText>
+            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>
+              Natural Products
+            </StatHelpText>
           </Stat>
 
           <Stat>
             <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
               8800+
             </StatNumber>
-            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>Satisfied Clients</StatHelpText>
+            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>
+              Satisfied Clients
+            </StatHelpText>
           </Stat>
 
           <Stat>
             <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
               17+
             </StatNumber>
-            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>Store</StatHelpText>
+            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>
+              Store
+            </StatHelpText>
           </Stat>
-          <Stat >
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl", lg: "3xl" }}>
+          <Stat>
+            <StatNumber
+              color="text.300"
+              fontSize={{ base: "3xl", md: "3xl", lg: "3xl" }}
+            >
               30+
             </StatNumber>
-            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>Countries</StatHelpText>
+            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>
+              Countries
+            </StatHelpText>
           </Stat>
-
         </SimpleGrid>
       </Container>
-      <Container maxW={{ base: "100vw", md: "5xl" }} >
-        {/* <Image w={"5xl"} mx={"auto"} mt={8} src={"./Swastikam/Home/swastikam.jpg"} /> */}
+      <Container pt={8} maxW={{ base: "100vw", md: "container.xl" }} centerContent>
+        <Image w={{md:"65%"}} src={"./Swastikam/Home/swastikam.jpg"} />
 
-        <Grid
-          templateColumns={{
-            base: "repeat(2, 1fr)",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(4,1fr)",
-          }}
-          gap={3}
-          my={6}
-         
-         
-        >
-          {imageInfo?.map((data) => (
-            <GridItem>
-              <Flex
-                flexDirection={"column"}
-                alignItems={"center"}
-               
-                pt={10}
-              >
-                <LazyLoadImage
-                  cursor={"pointer"}
-                  transition="all 1s ease"
-                  _hover={{
-                    transform: "scale(1.25)",
-                  }}
-                  src={data.src}
-                  alt={data.alt}
-
-                  style={{
-                    opacity: 1,
-                    transition: "opacity 0.7s",
-                    width: "120px",
-                    // Note the corrected syntax here
-                  }}
-                />
-                <Text textAlign={"center"} fontSize={"14px"} mt={2}>
-                  {data.name}
-                </Text>
-              </Flex>
-            </GridItem>
-          ))}
-        </Grid>
-        </Container>
-        <Container maxW={{ base: "100vw", md: "container.xl" }} >
+      
+      </Container>
+      <Container maxW={{ base: "100vw", md: "container.xl" }} px={0}>
         <Box
           w="100%"
           // backgroundImage={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/HomePage/line.png"}
@@ -330,13 +307,13 @@ export default function Home() {
         >
           <Heading
             color="brand.500"
-            size="xl"
+            fontSize={{md:33,base:20}}
             mx="auto"
             align={"center"}
             pt={"10"}
             pb={"10px"}
           >
-            Serving to the Countries
+            OUR SERVICES ARE AVAILABLE IN 
           </Heading>
         </Box>
         <Box display={"flex"} justifyContent={"center"}>

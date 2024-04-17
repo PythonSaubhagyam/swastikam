@@ -55,8 +55,7 @@ export default function Footer() {
             fontSize={{ base: "sm", lg: "md" }}
             className="scrolling-text"
           >
-            For Deliveries in America, Canada, Europe, UAE, Singapore, etc Email
-            us on
+           For deliveries in the USA, UAE, UK, Singapore, Canada and Australia email us at {" "}
             <Link
               target="_blank"
               href="mailto:export@suryanorganic.com"
@@ -65,7 +64,7 @@ export default function Footer() {
             >
               export@suryanorganic.com
             </Link>{" "}
-            or Whatsapp on{" "}
+            or WhatsApp us at{" "}
             <Link
               target="_blank"
               href="https://wa.me/+916354800089?text=Hello%2C%20this%20is%20a%20test%20message"
@@ -87,7 +86,7 @@ export default function Footer() {
             <Stack align={"flex-start"}>
             <Stack
                 ml={{ md: "50%" }}
-                align={{ md: "flex-start", base: "center" }}
+                
               >
                 <ListHeader style={{ color: "text.500" }}>
                   Quick Links
@@ -217,7 +216,7 @@ export default function Footer() {
                 care@suryanorganic.com
               </Link>
             </Stack>
-            <Stack alignItems={"center"}  mt={{ md: 3 }}>
+            <Stack   mt={{ md: 3 }}>
              
              {/* <ListHeader>Talk To Our Vaidya</ListHeader>
                <Link
@@ -247,9 +246,10 @@ export default function Footer() {
              
            
                <ListHeader  marginBottom={5}>
-                 We Accepts Payments via
+               We accept payments via
                </ListHeader>
                <Image
+               ml={"-15px"}
                  src={
                    "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/footer/payment method.png hnghngh.png"
                  }

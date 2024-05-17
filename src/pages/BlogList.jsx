@@ -159,7 +159,7 @@ export default function BlogList() {
         gap={{ base: 6, lg: 0 }}
         // maxW={{ base: "100%", lg: "90vw" }}
         minH="container.sm"
-        justify="space-between"
+        justifyContent="center"
         my={8}
         px={6}
         maxW="container.xl"

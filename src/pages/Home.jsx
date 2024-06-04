@@ -36,6 +36,7 @@ import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import Testimonials from "../components/testimonials";
 import { FaSquareFacebook } from "react-icons/fa6";
+import ScrollToTop from "../components/ScrollToTop";
 
 const new_arrival_gir_gauveda = [
   {
@@ -281,7 +282,7 @@ export default function Home() {
                     }}
                   />
                   <LinkOverlay
-                    _hover={{ color: "text.500" }}
+                    _hover={{ color: "bg.500" }}
                     href={`/blogs/${blog.id}/`}
                   >
                     <Heading size="sm" fontWeight={500} m={2}>
@@ -434,6 +435,7 @@ export default function Home() {
           </Grid>
         </Container> */}
       </Container>
+      <ScrollToTop/>
       <Footer />
       {/* </>
       )} */}

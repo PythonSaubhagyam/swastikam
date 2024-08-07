@@ -15,6 +15,10 @@ import { TfiYoutube } from "react-icons/tfi";
 import { FiInstagram } from "react-icons/fi";
 import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { IoMail } from "react-icons/io5";
+import CartPopUp from "./CartPopUp";
+import checkLogin from "../utils/checkLogin";
+import CheckOrSetUDID from "../utils/checkOrSetUDID";
+
 const ListHeader = ({ children }) => {
   return (
     <Text fontWeight={"500"} fontSize={"lg"} mb={1} color="brand.100">
@@ -26,6 +30,13 @@ const ListHeader = ({ children }) => {
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [isMobiles, setIsMobiles] = useState(window.innerWidth <= 600);
+  const loginInfo = checkLogin();
+  const checkOrSetUDIDInfo = CheckOrSetUDID();
+  let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
+
+  if (loginInfo.isLoggedIn === true) {
+    headers = { Authorization: `token ${loginInfo.token}` };
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -275,6 +286,7 @@ export default function Footer() {
           </Text>
         </Box>
       </Container>
+      {loginInfo.isLoggedIn && <CartPopUp />}
     </>
   );
 }

@@ -20,12 +20,12 @@ const Aboutus = () => {
   return (
     <>
       <Navbar />
-      <Container maxW={"container.xl"} py={8} px={0} position="relative">
+      <Container maxW={"container.xl"} py={1} px={0} position="relative">
         <Image src="./Swastikam/About us/Incense-banner.jpg" />
 
         <Text
           pb={2}
-          color={"#fff"}
+          color={"brand.100"}
           textAlign={"center"}
           fontSize={{ lg: "7xl", md: "5xl", base: "xl" }}
           fontWeight="600"
@@ -39,7 +39,6 @@ const Aboutus = () => {
           About Us
         </Text>
       </Container>
-
       <Container
         maxW={"6xl"}
         centerContent

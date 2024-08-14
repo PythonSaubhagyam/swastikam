@@ -93,7 +93,7 @@ export default function InspireSupport() {
       <Container maxW={"container.xl"} mb={4} px={0} >
       <Image src={ "./Swastikam/Inspire Support/inspire.jpg"} />
       </Container>
-      <Container maxW={"6xl"} py={4}>
+      <Container maxW={"6xl"}  >
         {Posts.map((postDetails) => (
           <ReadMorePost postAlign="horizontal" postDetails={postDetails} />
         ))}

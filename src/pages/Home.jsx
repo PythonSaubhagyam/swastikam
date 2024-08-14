@@ -131,12 +131,13 @@ export default function Home() {
         />
       </Container>
 
-      <Container maxW={"6xl"} centerContent pt={12}>
+      <Container maxW={"6xl"} centerContent pt={3}>
         <Grid
           templateColumns={{
             base: "repeat(1, 1fr)",
             md: "repeat(2, 1fr)",
           }}
+          gap={{base:5}}
         >
           <GridItem>
             <Image

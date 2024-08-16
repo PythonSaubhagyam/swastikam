@@ -1,6 +1,7 @@
 import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import Navbar from "../components/Navbar";
+
 import {
   Box,
   Container,
@@ -19,7 +20,8 @@ const Aboutus = () => {
   const IsMobileView = searchParams.get("mobile") ?? "false";
   return (
     <>
-      <Navbar />
+       {IsMobileView !== "true" && <Navbar />}
+
       <Container maxW={"container.xl"} py={1} px={0} position="relative">
         <Image src="./Swastikam/About us/Incense-banner.jpg" />
 
@@ -125,7 +127,8 @@ const Aboutus = () => {
         </Box>
       </Container>
 
-      <Footer />
+      {IsMobileView !== "true" && <Footer />}
+
     </>
   );
 };

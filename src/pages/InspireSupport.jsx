@@ -3,6 +3,8 @@ import Footer from "../components/Footer";
 import ReadMorePost from "../components/ReadMorePost";
 import { Box, Container, Text,Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
+import { useLocation } from "react-router-dom";
+
 
 const Posts = [
   {
@@ -80,9 +82,14 @@ const Posts = [
 ];
 
 export default function InspireSupport() {
+  let { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+ const IsMobileView = searchParams.get("mobile") ?? "false";
+
   return (
     <>
-      <Navbar />
+       {IsMobileView !== "true" && <Navbar />}
+
 
       <Container maxW="container.xl">
         <BreadCrumbCom
@@ -98,7 +105,8 @@ export default function InspireSupport() {
           <ReadMorePost postAlign="horizontal" postDetails={postDetails} />
         ))}
       </Container>
-      <Footer />
+      {IsMobileView !== "true" && <Footer />}
+
     </>
   );
 }

@@ -225,7 +225,7 @@ function SubscriptionPlans() {
       </Container>
       <Container maxW={"container.xl"}>
         <Box my={8}>
-          <Box bg="bg.500">
+          <Box bg="#F3ECE2">
             <Heading
               size="lg"
               fontWeight="bold"

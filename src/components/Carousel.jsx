@@ -58,7 +58,7 @@ export default function Carousel({
       position={"relative"}
       height={{ base: "100%", md: "50%" }}
       width={fullWidth ? "100vw" : "100%"}
-      bg={textBanners && "bg.500"}
+      bg={textBanners && "#F3ECE2"}
       // overflow={"hidden"}
     >
       {/* CSS files for react-slick */}

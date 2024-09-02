@@ -4,6 +4,7 @@ import Accordion from "../components/Accordion";
 import { Container, Box, Text,Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function FAQS() {
   let { search } = useLocation();
@@ -280,8 +281,10 @@ export default function FAQS() {
         </Box>
         <Accordion details={businessInquiryInformation} />
       </Container>
-      {IsMobileView !== "true" && <Footer />}
+      
 
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

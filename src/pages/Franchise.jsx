@@ -12,6 +12,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function Franchise() {
   
@@ -411,8 +412,10 @@ export default function Franchise() {
           </Flex>
         </Center>
       </Container>
-      {IsMobileView !== "true" && <Footer />}
+     
 
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

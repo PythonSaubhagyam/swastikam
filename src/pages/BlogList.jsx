@@ -32,6 +32,7 @@ import {
   PaginationPageGroup,
 } from "@ajna/pagination";
 import BreadCrumbCom from "../components/BreadCrumbCom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function BlogList() {
   const [blogs, setBlogs] = useState([]);
@@ -159,7 +160,7 @@ export default function BlogList() {
         gap={{ base: 6, lg: 0 }}
         // maxW={{ base: "100%", lg: "90vw" }}
         minH="container.sm"
-        justify="space-between"
+        justifyContent="center"
         my={8}
         px={6}
         maxW="container.xl"
@@ -371,6 +372,7 @@ export default function BlogList() {
           </Box>
         </Flex>
       </Container>
+      <ScrollToTop/>
       <Footer />
     </>
   );

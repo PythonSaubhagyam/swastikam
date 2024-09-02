@@ -29,6 +29,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaStreetView } from "react-icons/fa";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function StoreLocator() {
   let { search } = useLocation();
@@ -391,8 +392,10 @@ export default function StoreLocator() {
         </Flex>
       </Container>
 
-      {IsMobileView !== "true" && <Footer />}
+      
 
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

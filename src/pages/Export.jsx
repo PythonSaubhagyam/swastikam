@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import CapitalizeLetter from "../utils/CommanFunction";
 import checkLogin from "../utils/checkLogin";
 import { AsyncSelect, Select } from "chakra-react-select";
+import ScrollToTop from "../components/ScrollToTop";
 
 import { useLocation } from "react-router-dom";
 
@@ -1494,8 +1495,10 @@ export default function Export() {
           </Container>
         </form>
       </Container>
-      {IsMobileView !== "true" && <Footer />}
+     
 
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

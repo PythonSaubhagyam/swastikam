@@ -5,6 +5,7 @@ import { Box, Container, Text,Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
 
+import ScrollToTop from "../components/ScrollToTop";
 
 const Posts = [
   {
@@ -105,8 +106,10 @@ export default function InspireSupport() {
           <ReadMorePost postAlign="horizontal" postDetails={postDetails} />
         ))}
       </Container>
-      {IsMobileView !== "true" && <Footer />}
+    
 
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

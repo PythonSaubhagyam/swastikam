@@ -13,6 +13,7 @@ import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function OrganicLiving() {
     let { search } = useLocation();
@@ -443,8 +444,10 @@ export default function OrganicLiving() {
                 </Container>
             </Container>
 
-            {IsMobileView !== "true" && <Footer />}
+           
 
+            <ScrollToTop/>
+            {IsMobileView !== "true" && <Footer />}
         </>
     );
 }

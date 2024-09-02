@@ -15,6 +15,7 @@ import {
   Center,
   Box,
 } from "@chakra-ui/react";
+import ScrollToTop from "../components/ScrollToTop";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "../setup/axiosClient";
@@ -41,6 +42,55 @@ export default function GiftVoucher() {
   };
   const [loading, setLoading] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
+  const giftCardTerms = [
+    {
+      id: 1,
+      name: "Redemption:",
+      description:
+        " Gift Voucher can only be redeemed on our websites or through the Mobile apps.",
+    },
+    {
+      id: 2,
+      name: "No Expiry: ",
+      description:
+        "Gift card funds do not expire, ensuring flexibility for the recipient.",
+    },
+    {
+      id: 3,
+      name: "Purchase and Activation:",
+      description:
+        " There are no fees associated with the purchase or activation of the card.",
+    },
+    {
+      id: 4,
+      name: "Non-Redeemable at Hotel/Stores:",
+      description: "Gift Vouchers cannot be redeemed at Hotels/Stores.",
+    },
+    {
+      id: 5,
+      name: "Non-Reloadable:",
+      description:
+        " The card is non-reloadable and cannot be redeemed for cash, refunded, or returned, except where required by law. Treat this card as cash.",
+    },
+    {
+      id: 6,
+      name: "Lost or Stolen Cards:",
+      description:
+        "we are not responsible for lost, damaged, or stolen cards, or for unauthorized use.",
+    },
+    {
+      id: 7,
+      name: "Customer Responsibility: ",
+      description:
+        "It is the responsibility of the customer to ensure the accuracy of the recipient's email address or mobile number when purchasing an electronic voucher.",
+    },
+    {
+      id: 8,
+      name: "Non-Transferable: ",
+      description:
+        "The voucher is non-transferable and cannot be exchanged or resold.",
+    },
+  ];
 
   // const loginInfo = checkLogin();
   const navigate = useNavigate();
@@ -58,22 +108,18 @@ export default function GiftVoucher() {
     const handleResize = () => {
       setWidth(window.innerWidth);
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     // Cleanup the event listener on component unmount
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   async function CreateGiftVoucher() {
     try {
-      const response = await client.post(
-        "getvoucgerpaymentlink/",
-        { ...formData },
-        {
-          headers: { Authorization: `token ${loginInfo.token}` },
-        }
-      );
+      const response = await client.post("getvoucgerpaymentlink/", {
+        ...formData,
+      });
       if (response.data.status === true) {
         window.open(response.data.data);
         navigate("/");
@@ -400,8 +446,10 @@ export default function GiftVoucher() {
           </Container>
         </CardBody>
       </Card>
-      {IsMobileView !== "true" && <Footer />}
+     
 
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom";
 
 import { HiInformationCircle } from "react-icons/hi";
 import BreadCrumbCom from "../components/BreadCrumbCom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function ConsultOurVaidya() {
   
@@ -325,8 +326,10 @@ export default function ConsultOurVaidya() {
           </Box>
         </Flex>
       </Container>
-      {IsMobileView !== "true" && <Footer />}
+     
 
+      <ScrollToTop/>
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

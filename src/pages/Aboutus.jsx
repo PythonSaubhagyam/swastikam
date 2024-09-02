@@ -14,6 +14,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 const Aboutus = () => {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);

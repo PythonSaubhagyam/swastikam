@@ -22,6 +22,7 @@ import CapitalizeLetter from "../utils/CommanFunction";
 import checkLogin from "../utils/checkLogin";
 import { AsyncSelect, Select } from "chakra-react-select";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function Bussiness() {
   let { search } = useLocation();
@@ -1075,6 +1076,8 @@ export default function Bussiness() {
       </Container>
       {IsMobileView !== "true" && <Footer />}
 
+      <ScrollToTop/>
+      <Footer />
     </>
   );
 }

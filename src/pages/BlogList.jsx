@@ -117,30 +117,14 @@ export default function BlogList() {
 
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Blog"} secondUrl={"/blogs"} />
-        {/* <Flex
-          direction="column"
-          w="100%"
-          h="200px"
-          justify={"center"}
-          mt={2}
-          ps={{ base: 4, lg: 20 }}
-          color="white"
-          bgGradient={["linear(to-b, brand.900, brand.100)"]}
-        >
-          <Heading color={"white"} fontWeight={"light"}>
-            News & Articles
-          </Heading>
-          <Text color={"white"} fontWeight={"light"}>
-            Get the latest updates & insights from SOSE
-          </Text>
-        </Flex> */}
+       
       </Container>
       <Container maxW={"container.xl"} py={1} px={0} position="relative">
         <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/news and event.jpg" />
 
         <Text
           pb={2}
-          color={"brand.500"}
+          color={"brand.100"}
           textAlign={"center"}
           fontSize={{ lg: "7xl", md: "4xl", base: "2xl" }}
           fontWeight="600"
@@ -372,6 +356,7 @@ export default function BlogList() {
           </Box>
         </Flex>
       </Container>
+
       <ScrollToTop/>
       <Footer />
     </>

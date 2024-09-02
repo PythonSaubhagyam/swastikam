@@ -56,33 +56,47 @@ export default function ConsultOurVaidya() {
           secondUrl={"/consult-our-vaidya"}
         />
       </Container>
-      <Box
-        w={"100%"}
-        bgImage={
-          "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/vaidh-cover.webp"
-        }
-        bgSize="cover"
-        bgPosition="center"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        mt={"-10px"}
-        py={20}
-        boxShadow={"0px 0px 0px 0px"}
-        height={"550px"}
-        mb={10}
-      >
-        <Text
-          pb={2}
-          color={"brand.100"}
-          textAlign={"center"}
-          textShadow={"0px 1px 50px lightgreen"}
-          fontSize="7xl"
-          fontWeight="600"
+      <Container maxW="container.xl" px={0}>
+        <Box
+          position="relative" // Set position relative for parent box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          py={20}
+          h={{lg:"600px",md:"350px"}}
+          w={"100%"}
+          mb={10}
         >
-          Consult Our Vaidya
-        </Text>
-      </Box>
+          {/* Background Image */}
+          <Box
+            position="absolute"
+            top={0}
+            left={0}
+            right={0}
+            bottom={0}
+            zIndex={1} // Set a lower zIndex for the background image
+            bgImage={
+              "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/vaidh-cover.webp"
+            }
+            bgSize="cover"
+            bgPosition="center"
+          />
+          {/* Overlay */}
+          <Box
+            position="absolute"
+            top={0}
+            left={0}
+            right={0}
+            bottom={0}
+            zIndex={2}
+            bg="rgba(0, 0, 0, 0.5)"
+          />
+
+          <Text color={"#fff"} textAlign={"center"} zIndex={3} fontSize={{lg:"5xl",md:"2xl"}}>
+            Get Free Consultation with our Vaidya for Gau Adharit Diagnosis
+          </Text>
+        </Box>
+      </Container>
       <Container maxW={"container.xl"} py={10}>
         <Flex>
           <Flex direction={"column"} justify={"center"}>

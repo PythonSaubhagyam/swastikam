@@ -14,6 +14,8 @@ import {
   useToast,
   Center,
   Box,
+  SimpleGrid,
+  Grid,
 } from "@chakra-ui/react";
 import ScrollToTop from "../components/ScrollToTop";
 import { useEffect, useRef, useState } from "react";
@@ -23,14 +25,11 @@ import client from "../setup/axiosClient";
 import { AiFillGift } from "react-icons/ai";
 import checkLogin from "../utils/checkLogin";
 import Loader from "../components/Loader";
-
 import { useLocation } from "react-router-dom";
-
 export default function GiftVoucher() {
   let { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
-   const IsMobileView = searchParams.get("mobile") ?? "false";
-
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
   const txnId = useRef(new Date().getTime().toString());
   const defaultValue = {
     amount: null,
@@ -163,9 +162,7 @@ export default function GiftVoucher() {
   };
   return (
     <>
-     {IsMobileView !== "true" && <Navbar />}
-
-
+      {IsMobileView !== "true" && <Navbar />}
       <Card m={3}>
         <CardBody>
           <Container
@@ -446,9 +443,7 @@ export default function GiftVoucher() {
           </Container>
         </CardBody>
       </Card>
-     
-
-      <ScrollToTop/>
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>
   );

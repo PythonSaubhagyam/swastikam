@@ -23,7 +23,7 @@ const Aboutus = () => {
     <>
        {IsMobileView !== "true" && <Navbar />}
 
-      <Container maxW={"container.xl"} py={1} px={0} position="relative">
+      <Container maxW={"container.xl"} py={1} px={0} position="relative"  centerContent>
         <Image src="./Swastikam/About us/Incense-banner.jpg" />
 
         <Text

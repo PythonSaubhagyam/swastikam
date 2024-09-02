@@ -160,7 +160,7 @@ export default function ContactUs() {
         >
           Contact Us
         </Text> */}
-        <Text pb={2}>
+        <Text pb={2} pt={2}>
           Contact us about anything related to our company or services.
         </Text>
         <Text pb={8}>

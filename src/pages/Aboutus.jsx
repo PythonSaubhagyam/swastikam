@@ -128,6 +128,7 @@ const Aboutus = () => {
         </Box>
       </Container>
 
+          <ScrollToTop/>
       {IsMobileView !== "true" && <Footer />}
 
     </>

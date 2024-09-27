@@ -392,7 +392,7 @@ export default function Home() {
         <Box display={"flex"} justifyContent={"center"}>
           <Image
             src={
-              "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/Map.webp"
+        require("../../public/001.jpg")
             }
             w={{ base: "100%", md: "100%" }}
             alt=""

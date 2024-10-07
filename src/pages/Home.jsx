@@ -88,6 +88,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
+  const [sections, setSections] = useState([]);
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
   const isMobiles = width <= 768;
@@ -100,6 +101,7 @@ export default function Home() {
     init();
     //getHomePageData();
     getBlogs();
+    getImage(); 
   }, []);
 
   async function getHomePageData() {
@@ -117,6 +119,15 @@ export default function Home() {
     });
     if (response.data.status === true) {
       setBlogs(response.data.blogs);
+    }
+  }
+  async function getImage() {
+    const params = {};
+    const response = await client.get("/lower-section", {
+      params: params,
+    });
+    if (response.data.status === true) {
+      setSections(response.data.data);
     }
   }
 
@@ -390,14 +401,12 @@ export default function Home() {
             pt={"10"}
             pb={"10px"}
           >
-            OUR SERVICES ARE AVAILABLE IN 
+            {sections?.length > 0 && sections[1].label}
           </Heading>
         </Box>
         <Box display={"flex"} justifyContent={"center"}>
           <Image
-            src={
-        "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/Map.webp"
-            }
+             src={sections?.length > 0 && sections[1]?.images[0].image}
             w={{ base: "100%", md: "100%" }}
             alt=""
             py={4}

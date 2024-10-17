@@ -88,6 +88,11 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
+  const [sections, setSections] = useState([]);
+
+ 
+  const [servicesSection, setServicesSection] = useState();
+
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
   const isMobiles = width <= 768;
@@ -96,6 +101,7 @@ export default function Home() {
     CheckOrSetUDID();
     //getHomePageData();
     getBlogs();
+    getLowerSection();
   }, []);
 
   // async function getHomePageData() {
@@ -117,6 +123,25 @@ export default function Home() {
     setLoading(false);
   }
 
+  async function getLowerSection() {
+    const params = {};
+    const response = await client.get("/lower-section/", {
+      params: params,
+    });
+    if (response.data.status === true) {
+      setSections(response.data.data);
+     
+      const ourServicesSection = response.data.data?.filter(
+        (section) => section.id === 2
+      );
+     
+     
+     
+      setServicesSection(ourServicesSection);
+      
+     
+    }
+  }
   return (
     <>
       <Navbar />
@@ -370,72 +395,38 @@ export default function Home() {
 
       
       </Container>
-      <Container maxW={{ base: "100vw", md: "container.xl" }} px={0}>
-        <Box
-          w="100%"
-          // backgroundImage={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/HomePage/line.png"}
-          backgroundSize="100%"
-          backgroundPosition="50% 100%"
-          backgroundRepeat={"no-repeat"}
-        >
-          <Heading
-            color="brand.500"
-            fontSize={{md:33,base:20}}
-            mx="auto"
-            align={"center"}
-            pt={"10"}
-            pb={"10px"}
-          >
-            OUR SERVICES ARE AVAILABLE IN 
-          </Heading>
-        </Box>
-        <Box display={"flex"} justifyContent={"center"}>
-          <Image
-            src={
-              "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/Map.webp"
-            }
-            w={{ base: "100%", md: "100%" }}
-            alt=""
-            py={4}
-            style={{
-              opacity: 1,
-              transition: "opacity 0.7s", // Note the corrected syntax here
-            }}
-          />
-        </Box>
-
-        {/* <Container maxW={"7xl"}>
-          <Grid templateColumns={{
-            base: "repeat(2, 1fr)",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(4,1fr)",
-          }}>
-            <GridItem>
-              <a href="https://www.facebook.com/people/Swastikam/100068397168257/" target="_blank" rel="noopener noreferrer">
-                <Image src="https://www.swastikam.com/web/image/221450/Swastikam%20facebook.png" alt="" h="60%" />
-              </a>
-            </GridItem>
-
-            <GridItem>
-              <a href="https://www.instagram.com/swastikam_/" target="_blank" rel="noopener noreferrer">
-                <Image src="https://www.swastikam.com/web/image/221452/swastikam%20instagram.png" alt="" h="60%" />
-              </a>
-            </GridItem>
-
-            <GridItem>
-              <a href="https://play.google.com/store/apps/details?id=com.sose.swastikam&hl=en" target="_blank" rel="noopener noreferrer">
-                <Image src="https://www.swastikam.com/web/image/221457/google%20play%20swastikam.png" alt="" h="60%" />
-              </a>
-            </GridItem>
-
-            <GridItem>
-              <a href="https://www.facebook.com/people/Swastikam/100068397168257/" target="_blank" rel="noopener noreferrer">
-                <Image src="https://www.swastikam.com/web/image/221459/app%20store%20swastikam.png" alt="" h="60%" />
-              </a>
-            </GridItem>
-          </Grid>
-        </Container> */}
-      </Container>
+      {servicesSection?.length > 0 &&
+        servicesSection[0]?.is_visible_on_website === true && (
+          <Container maxW={{ base: "100vw", md: "container.xl" }}>
+           
+              <Heading
+                color="brand.500"
+                fontSize={{ md: 33, base: 20 }}
+                mx="auto"
+                align={"center"}
+                my={"5"}
+                pb={"10px"}
+              >
+                {servicesSection?.length > 0 && servicesSection[0].label}
+              </Heading>
+           
+            <Box display={"flex"} justifyContent={"center"}>
+              <LazyLoadImage
+                src={
+                  servicesSection?.length > 0 &&
+                  servicesSection[0]?.images[0].image
+                }
+                w={{ base: "100%", md: "100%" }}
+                alt=""
+                py={4}
+                style={{
+                  opacity: 1,
+                  transition: "opacity 0.7s", // Note the corrected syntax here
+                }}
+              />
+            </Box>
+          </Container>
+        )}
       <ScrollToTop/>
       <Footer />
       {/* </>

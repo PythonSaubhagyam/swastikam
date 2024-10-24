@@ -7,6 +7,7 @@ import CarouselWithLinks from "../components/CarouselWithLinks";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ProductListSection from "../components/ProductListSection";
+import secondproductlistsection from "../components/secondproductlistsection";
 import {
   Container,
   Flex,
@@ -37,6 +38,9 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import Testimonials from "../components/testimonials";
 import { FaSquareFacebook } from "react-icons/fa6";
 import ScrollToTop from "../components/ScrollToTop";
+import checkLogin from "../utils/checkLogin";
+import LoginModal from "../components/LoginModal";
+import Secondproductlistsection from "../components/secondproductlistsection";
 
 const new_arrival_gir_gauveda = [
   {
@@ -89,19 +93,31 @@ export default function Home() {
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
   const [sections, setSections] = useState([]);
-
- 
-  const [servicesSection, setServicesSection] = useState();
-
+  const [AboutSection, setAboutSection] = useState([]);
+  const [ExplorSection, setExplorSection] = useState([]);
+  const [NonGmoSection, setNonGmoSection] = useState([]);
+  const [BestsallerSection, setBestsallerSection] = useState([]);
+  const [servicesSection, setServicesSection] = useState([]);
+  const [TherapiOliSection, setTherapiOliSection] = useState([]);
+  const loginInfo = checkLogin();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
+  const [showPopup, setShowPopup] = useState(
+    sessionStorage.getItem("hasShownPopup")
+  );
+
   const isMobiles = width <= 768;
   const navigate = useNavigate();
   useEffect(() => {
     CheckOrSetUDID();
     //getHomePageData();
     getBlogs();
+    getUpper();
     getLowerSection();
+    if (showPopup === null && !loginInfo.isLoggedIn) {
+      setIsLoginModalOpen(true);
+    }
   }, []);
 
   // async function getHomePageData() {
@@ -130,18 +146,42 @@ export default function Home() {
     });
     if (response.data.status === true) {
       setSections(response.data.data);
-     
+
       const ourServicesSection = response.data.data?.filter(
         (section) => section.id === 2
       );
-     
-     
-     
       setServicesSection(ourServicesSection);
-      
-     
     }
   }
+
+  const getUpper = async () => {
+    const response = await client.get("/swastikam-section/?type=upper");
+    if (response.data.status === true) {
+      setSections(response.data.data);
+      const ourAboutSection = response.data.data?.filter(
+        (section) => section.id === 1
+      );
+      const ourExplorSection = response.data.data?.filter(
+        (section) => section.id === 2
+      );
+      const ourBestsallerSection = response.data.data?.filter(
+        (section) => section.id === 3
+      );
+      const ourTherapiOliSection = response.data.data?.filter(
+        (section) => section.id === 4
+      );
+      const ourNonGmoSection = response.data.data?.filter(
+        (section) => section.id === 5
+      );
+
+      setAboutSection(ourAboutSection);
+      setExplorSection(ourExplorSection);
+      setBestsallerSection(ourBestsallerSection);
+      setTherapiOliSection(ourTherapiOliSection);
+      setNonGmoSection(ourNonGmoSection);
+    }
+  };
+  console.log("best",BestsallerSection)
   return (
     <>
       <Navbar />
@@ -157,62 +197,54 @@ export default function Home() {
           }}
         />
       </Container>
-
-      <Container maxW={"6xl"} centerContent pt={12}>
-        <Grid
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            md: "repeat(2, 1fr)",
-          }}
-        >
-          <GridItem>
-            <Image
-              src="./Swastikam/Home/Incense_Hands_sq.jpg"
-              alt=""
-              
-            />
-          </GridItem>
-          <GridItem>
-            <Heading>स्वस्तिकम</Heading>
-            <Text color={"#000000"} fontSize={"17px"} align={"justify"} mt={2}>
-              Burning agarbatti (incense), dhoop and conducting vedic havans
-              (sacrificial fire rituals) has been practiced in Bharat since
-              thousands of years. These practices are known to create an ideal
-              environment for worship, cleanse subtler energies, attract
-              positive energies and repel negative one's. In fact, not just in
-              Bharat but throughout the world in ancient cultures herbal smoke
-              has been an important part of worship as well as medicine.
-              However, it is in the current century that modern research has
-              been able to understand the scientific basis of such practices.
-              Without going into its metaphysical & spiritual aspects, here we
-              will discuss the physical benefits of lighting incense,dhoop and
-              conducting havans.
-            </Text>
-            <Button
-              mt={6}
-              variant={"outline"}
-              color="brand.500"
-              borderColor={"brand.500"}
-              onClick={() => navigate("/about-us")}
-              size={"md"}
-              _hover={{ color: "white", bgColor: "brand.500" }}
+      {AboutSection?.length > 0 &&
+        AboutSection[0]?.is_visible_on_website === true && (
+          <Container maxW={"6xl"} centerContent pt={12}>
+            <Grid
+              templateColumns={{
+                base: "repeat(1, 1fr)",
+                md: "repeat(2, 1fr)",
+              }}
             >
-              Read More
-            </Button>
-          </GridItem>
-        </Grid>
-      </Container>
-      <Container mt={12} centerContent>
-        <Image src="./Swastikam/Home/exlore range.png" alt="" />
-      </Container>
+              <GridItem>
+                <Image src={AboutSection[0]?.image} alt="" />
+              </GridItem>
+              <GridItem>
+                <Heading> {AboutSection[0]?.label}</Heading>
+                <Text
+                  color={"#000000"}
+                  fontSize={"17px"}
+                  align={"justify"}
+                  mt={2}
+                >
+                  {AboutSection[0]?.description}
+                </Text>
+                <Button
+                  mt={6}
+                  variant={"outline"}
+                  color="brand.500"
+                  borderColor={"brand.500"}
+                  onClick={() => navigate("/about-us")}
+                  size={"md"}
+                  _hover={{ color: "white", bgColor: "brand.500" }}
+                >
+                  Read More
+                </Button>
+              </GridItem>
+            </Grid>
+          </Container>
+        )}
 
-      <Container mt={12} centerContent>
-        <Image src="./Swastikam/Home/incence stick.png" alt="" w={"50%"} />
-      </Container>
-
+      {ExplorSection?.length > 0 &&
+        ExplorSection[0]?.is_visible_on_website === true && (
+          <Container mt={12} centerContent>
+            <Image src={ExplorSection[0]?.image} alt="" />
+            <Image src={ExplorSection[0]?.images[0]?.image} alt="" w={"50%"} />
+          </Container>
+        )}
       <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
         <LazyLoadImage
-          src={"./Swastikam/Home/middle banner.jpg"}
+          src={ExplorSection[0]?.images[1]?.image}
           alt=""
           style={{
             opacity: 1,
@@ -220,12 +252,13 @@ export default function Home() {
           }}
         />
       </Container>
-
-      <Container mt={12} mb={12} centerContent>
-        <Image src="./Swastikam/Home/best selling.png" alt="" />
-      </Container>
-
-      {/* <Container maxW={"container.xl"} px={"10%"} centerContent>
+      {BestsallerSection?.length > 0 &&
+        BestsallerSection[0]?.is_visible_on_website === true && (
+          <>
+          <Container mt={12} mb={12} centerContent>
+            <Image src={BestsallerSection[0]?.image} alt="" />
+            </Container>
+            {/* <Container maxW={"container.xl"} px={"10%"} centerContent>
       <Grid templateColumns={{
           base: "repeat(1, 1fr)",
           md: "repeat(2, 1fr)",
@@ -246,38 +279,42 @@ export default function Home() {
           </Grid>
           </Container> */}
 
-      <ProductListSection
+            <Secondproductlistsection
+              title=""
+              //products={BestsallerSection[0]?.images?.length > 0 && BestsallerSection[0]?.images}
+              products={BestsallerSection[0]?.images}
+              loading={loading}
+              
+            />
+         </>
+        )}
+      {/* <ProductListSection
         title=""
         loading={loading}
         products={new_arrival_gir_gauveda}
-      />
+      /> */}
 
-      <Container maxW={"container.xl"} px={12} centerContent>
-        <Grid
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            md: "repeat(2, 1fr)",
-          }}
-        >
-          <GridItem>
-            <Image src="./Swastikam/Home/therapy oil.png" alt="" />
-          </GridItem>
+      {TherapiOliSection?.length > 0 &&
+        TherapiOliSection[0]?.is_visible_on_website === true && (
+          <Container maxW={"container.xl"} px={12} centerContent>
+            <Grid
+              templateColumns={{
+                base: "repeat(1, 1fr)",
+                md: "repeat(2, 1fr)",
+              }}
+            >
+              <GridItem>
+                <Image src={TherapiOliSection[0]?.images[0]?.image} alt="" />
+              </GridItem>
 
-          <GridItem>
-            <Image src="./Swastikam/Home/incence cone.png" alt="" />
-          </GridItem>
-        </Grid>
-      </Container>
-
+              <GridItem>
+                <Image src={TherapiOliSection[0]?.images[1]?.image} alt="" />
+              </GridItem>
+            </Grid>
+          </Container>
+        )}
       <Container maxW={"container.xl"}>
-        <Heading
-          color="brand.500"
-          size="lg"
-          mx="auto"
-          align={"center"}
-          mt={8}
-         
-        >
+        <Heading color="brand.500" size="lg" mx="auto" align={"center"} mt={8}>
           BLOGS
         </Heading>
 
@@ -390,26 +427,30 @@ export default function Home() {
           </Stat>
         </SimpleGrid>
       </Container>
-      <Container pt={8} maxW={{ base: "100vw", md: "container.xl" }} centerContent>
-        <Image w={{md:"65%"}} src={"./Swastikam/Home/swastikam.jpg"} />
-
-      
-      </Container>
+      {NonGmoSection?.length > 0 &&
+        NonGmoSection[0]?.is_visible_on_website === true && (
+          <Container
+            pt={8}
+            maxW={{ base: "100vw", md: "container.xl" }}
+            centerContent
+          >
+            <Image w={{ md: "65%" }} src={NonGmoSection[0]?.image} />
+          </Container>
+        )}
       {servicesSection?.length > 0 &&
         servicesSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
-           
-              <Heading
-                color="brand.500"
-                fontSize={{ md: 33, base: 20 }}
-                mx="auto"
-                align={"center"}
-                my={"5"}
-                pb={"10px"}
-              >
-                {servicesSection?.length > 0 && servicesSection[0].label}
-              </Heading>
-           
+            <Heading
+              color="brand.500"
+              fontSize={{ md: 33, base: 20 }}
+              mx="auto"
+              align={"center"}
+              my={"5"}
+              pb={"10px"}
+            >
+              {servicesSection?.length > 0 && servicesSection[0].label}
+            </Heading>
+
             <Box display={"flex"} justifyContent={"center"}>
               <LazyLoadImage
                 src={
@@ -427,7 +468,13 @@ export default function Home() {
             </Box>
           </Container>
         )}
-      <ScrollToTop/>
+      {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
+      <ScrollToTop />
       <Footer />
       {/* </>
       )} */}

@@ -217,7 +217,7 @@ function SubscriptionPlans() {
           <Button
             colorScheme="brand"
             size="lg"
-            onClick={() => Router.navigate("/login")}
+            onClick={() => Router.setIsLoginModalOpen(true)}
           >
             Login to join SOSE Elite
           </Button>

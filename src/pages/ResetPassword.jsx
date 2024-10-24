@@ -33,7 +33,7 @@ export default function ResetPassword() {
                     duration: 4000,
                     isClosable: true,
                 });
-                navigate("/login");
+                setIsLoginModalOpen(true)
             } else {
                 toast({
                     title: `${response.data.message}`,

@@ -52,7 +52,7 @@ export default function SignUp() {
                         duration: 3000,
                         isClosable: true,
                     });
-                    navigate("/login", { replace: true });
+                    setIsLoginModalOpen(true)
                 } else {
                     toast({
                         title: "Unable to create user account!",

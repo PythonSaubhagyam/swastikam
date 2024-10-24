@@ -267,7 +267,7 @@ export default function Cart() {
         });
       }
     } else {
-      navigate("/login");
+      setIsLoginModalOpen(true)
       toast({
         title: "Please login to place an order!",
         status: "info",

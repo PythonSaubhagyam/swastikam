@@ -14,14 +14,17 @@ import {
     GridItem
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import checkLogin from "../utils/checkLogin";
 import { useLocation } from "react-router-dom";
 import { HiInformationCircle } from "react-icons/hi";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
+import LoginModal from "../components/LoginModal";
 
 export default function ConsultOurVaidya() {
     let { search } = useLocation();
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
 
@@ -40,7 +43,7 @@ export default function ConsultOurVaidya() {
                 duration: 3000,
                 isClosable: true,
             });
-            navigate("/login");
+            setIsLoginModalOpen(true)
         }
     }
 
@@ -297,6 +300,12 @@ export default function ConsultOurVaidya() {
                     </Box>
                 </Flex>
             </Container>
+            {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
             <ScrollToTop/>
             {IsMobileView !== "true" && <Footer />}
         </>

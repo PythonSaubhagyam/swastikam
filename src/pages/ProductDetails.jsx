@@ -271,7 +271,7 @@ export default function ProductDetails() {
       // window.alert(
       //   "Sorry! You are not allowed to review this product since you haven't login"
       // );
-      navigate("/login");
+      setIsLoginModalOpen(true)
       //navigate("/login");
       toast({
         title: "Please login to write a review!",

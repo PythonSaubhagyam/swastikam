@@ -47,7 +47,7 @@ export default function ChangePassword() {
           isClosable: true,
         });
         localStorage.clear();
-        navigate("/login", { replace: true });
+        setIsLoginModalOpen(true)
         await checkOrSetUDID();
       } else {
         toast({

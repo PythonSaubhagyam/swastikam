@@ -73,6 +73,7 @@ export default function Home() {
   useEffect(() => {
     CheckOrSetUDID();
     //getHomePageData();
+    getBanners();
     getBlogs();
     getUpper();
     getLowerSection();
@@ -81,6 +82,21 @@ export default function Home() {
       setIsLoginModalOpen(true);
     }
   }, []);
+
+  async function getBanners() {
+    setLoading(true);
+    try {
+      const response = await client.get("/ecommerce/banners/?sequence=Upper");
+      if (response.data.status === true) {
+        setBanners(response?.data?.banner);
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Error fetching data:", error);
+    }
+  }
+
 
   async function getStatisticsSection() {
     const params = {};
@@ -148,17 +164,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Container mb={5} px={0} maxW={"container.xl"} centerContent>
-        <LazyLoadImage
-          src={"./Swastikam/Home/banner 1.jpg"}
-          height={{ base: "100%", md: "50%" }}
-          width={"100%"}
-          alt=""
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s",
-          }}
-        />
+      <Container maxW={"container.xl"} px={0}>
+        {loading === true ? (
+          <Skeleton h={489}></Skeleton>
+        ) : (
+          <Carousel banners={banners?.length > 0 && banners} />
+        )}
       </Container>
       {AboutSection?.length > 0 &&
         AboutSection[0]?.is_visible_on_website === true && (

@@ -87,7 +87,7 @@ export default function Carousel({
             top={"50%"}
             transform={"translate(50%, -50%)"}
             zIndex={2}
-            display={{ base: "none", md: "block" }}
+            display={{ base: "none", md: banners?.length > 1 && "block" }}
             onClick={() => slider?.slickPrev()}
             _hover={"background:#ffffff00"}
             borderRadius={"40px"}
@@ -105,7 +105,7 @@ export default function Carousel({
             top={"50%"}
             transform={"translate(-50%, -50%)"}
             zIndex={2}
-            display={{ base: "none", md: "block" }}
+            display={{ base: "none", md: banners?.length > 1 && "block" }}
             onClick={() => slider?.slickNext()}
             _hover={"background:#ffffff00 "}
             borderRadius={"40px"}
@@ -114,7 +114,7 @@ export default function Carousel({
       )}
       {/* Slider */}
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
-        {banners.map((bannerData, index) => (
+        {banners?.length > 0 && banners.map((bannerData, index) => (
           <>
             {textBanners === true ? (
               <Box key={index} textAlign="center" w="50vw" mx={"auto"} pb={4}>

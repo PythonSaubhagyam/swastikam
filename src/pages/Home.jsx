@@ -42,47 +42,7 @@ import checkLogin from "../utils/checkLogin";
 import LoginModal from "../components/LoginModal";
 import Secondproductlistsection from "../components/secondproductlistsection";
 
-const new_arrival_gir_gauveda = [
-  {
-    image1: "./Swastikam/Home/chakra.png",
-    src: "natural",
-    name: "Rose Incense Stick",
-  },
-  {
-    image1: "./Swastikam/Home/rose stick.png",
-    src: "kesar",
-    name: "Stress Relief Cones",
-  },
-  {
-    image1: "./Swastikam/Home/stress relief.png",
-    src: "Langda Mango",
-    name: " Multi Chakra Sticks",
-  },
-  {
-    image1: "./Swastikam/Home/oil.png",
-    src: "Katch kesar Mango",
-    name: "Therapy Oil Meditation",
-  },
-];
 
-const imageInfo = [
-  {
-    src: "./Swastikam/Home/non (1).png",
-    alt: "image",
-  },
-  {
-    src: "./Swastikam/Home/natural (1).png",
-  },
-  {
-    src: "./Swastikam/Home/quality (1).png",
-  },
-  // {
-  //   src: "./Swastikam/Home/delivery.png",
-  // },
-  {
-    src: "./Swastikam/Home/service (1).png",
-  },
-];
 
 export default function Home() {
   const [isFullScreen] = useMediaQuery("(min-width: 768px)");
@@ -100,6 +60,7 @@ export default function Home() {
   const [servicesSection, setServicesSection] = useState([]);
   const [TherapiOliSection, setTherapiOliSection] = useState([]);
   const loginInfo = checkLogin();
+  const [statisticsSection, setStatisticsSection] = useState([]);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
@@ -115,19 +76,21 @@ export default function Home() {
     getBlogs();
     getUpper();
     getLowerSection();
+    getStatisticsSection();
     if (showPopup === null && !loginInfo.isLoggedIn) {
       setIsLoginModalOpen(true);
     }
   }, []);
 
-  // async function getHomePageData() {
-  //   const response = await client.get("/home");
-  //   if (response.data.status === true) {
-  //     setBanners(response.data.banners);
-  //     setHome(response.data);
-  //   }
-  //   setLoading(false);
-  // }
+  async function getStatisticsSection() {
+    const params = {};
+    const response = await client.get("/statistics-section/", {
+      params: params,
+    });
+    if (response.data.status === true) {
+      setStatisticsSection(response?.data?.data);
+    }
+  }
   async function getBlogs() {
     const params = {};
     const response = await client.get("/home/blogs/", {
@@ -378,7 +341,8 @@ export default function Home() {
       </Container>
 
       {/* <Testimonials /> */}
-      <Container backgroundColor={"bg.100"} maxW={"container.xl"} py={2}>
+      {statisticsSection?.length > 0 && (
+        <Container backgroundColor={"bg.100"} maxW={"container.xl"} py={2}>
         <SimpleGrid
           columns={[2, 3, null, 4]}
           px={6}
@@ -388,45 +352,18 @@ export default function Home() {
           spacingX={{ base: "10vw", md: "30px" }}
           spacingY="40px"
         >
-          <Stat>
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
-              39+
-            </StatNumber>
-            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>
-              Natural Products
-            </StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
-              8800+
-            </StatNumber>
-            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>
-              Satisfied Clients
-            </StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
-              17+
-            </StatNumber>
-            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>
-              Store
-            </StatHelpText>
-          </Stat>
-          <Stat>
-            <StatNumber
-              color="text.300"
-              fontSize={{ base: "3xl", md: "3xl", lg: "3xl" }}
-            >
-              30+
-            </StatNumber>
-            <StatHelpText color="text.300" fontSize={{ base: "xl", md: "xl" }}>
-              Countries
-            </StatHelpText>
-          </Stat>
+           {statisticsSection?.length > 0 &&
+              statisticsSection?.map((data) => (
+                <Stat>
+                  <StatNumber fontSize={{ base: "3xl", md: "3xl" }}>
+                    {data?.value}
+                  </StatNumber>
+                  <StatHelpText color="gray.600">{data?.name}</StatHelpText>
+                </Stat>
+              ))}
+         
         </SimpleGrid>
-      </Container>
+      </Container> )}
       {NonGmoSection?.length > 0 &&
         NonGmoSection[0]?.is_visible_on_website === true && (
           <Container

@@ -19,16 +19,18 @@ const SecondProductCard = ({ product }) => {
         mb={5}
         borderColor="brand.100"
         borderRadius={"lg"}
-        //onClick={() => {
-         // window.location.href = `/products/${product.id}`;
-          // navigate(),
-          //   window.scrollTo({
-          //     top: 0,
-          //     left: 0,
-          //     behavior: "smooth",
-          //   });
-        //}}
-        cursor={"pointer"}
+        onClick={() => {
+          if(product?.product !== null){
+         window.location.href = `/products/${product?.product}`;
+          navigate(),
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth",
+            });
+          }
+        }}
+        cursor={product?.product !== null ? "pointer" : ""}
       >
         <CardBody backgroundColor={"white"} borderRadius="lg">
           <Image
@@ -65,7 +67,7 @@ const SecondProductCard = ({ product }) => {
           </Box>
           <Button
             as={Link}
-            //to={ product.product ? `/products/${product.product}`}
+            to={ product.product!== null && `/products/${product.product}` }
             fontSize="sm"
             w={{ base: "100%", lg: "80%" }}
             mx="auto"

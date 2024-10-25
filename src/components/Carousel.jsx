@@ -39,15 +39,15 @@ export default function Carousel({
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-      const handleResize = () => {
-          setWindowWidth(window.innerWidth);
-      };
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
-      window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-      return () => {
-          window.removeEventListener("resize", handleResize);
-      };
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const shouldShowButtons = windowWidth > 330;
@@ -76,42 +76,42 @@ export default function Carousel({
       {/* Left Icon */}
       {shouldShowButtons && (
         <>
-      <IconButton
-        aria-label="left-arrow"
-        icon={<ChevronLeftIcon style={{ fontSize: 34 }} />}
-        background={transparentBtn ? "#ffffff00" : "#434242"}
-        color="#fff"
-        size={{ base: "sm", md: "md" }}
-        position="absolute"
-        left={side}
-        top={"50%"}
-        transform={"translate(50%, -50%)"}
-        zIndex={2}
-        display={{ base: "none", md: "block" }}
-        onClick={() => slider?.slickPrev()}
-        _hover={"background:#ffffff00"}
-        borderRadius={"40px"}
-        style={{ display: { base: "none", md: "" } }}
-      />
-      {/* Right Icon */}
-      <IconButton
-        aria-label="right-arrow"
-        icon={<ChevronRightIcon style={{ fontSize: 34 }} />}
-        background={transparentBtn ? "#ffffff00" : "#434242"}
-        color="#fff"
-        size={{ base: "sm", md: "md" }}
-        position="absolute"
-        right={side}
-        top={"50%"}
-        transform={"translate(-50%, -50%)"}
-        zIndex={2}
-        display={{ base: "none", md: "block" }}
-        onClick={() => slider?.slickNext()}
-        _hover={"background:#ffffff00 "}
-        borderRadius={"40px"}
-      />
-         </>
-            )}
+          <IconButton
+            aria-label="left-arrow"
+            icon={<ChevronLeftIcon style={{ fontSize: 34 }} />}
+            background={transparentBtn ? "#ffffff00" : "#434242"}
+            color="#fff"
+            size={{ base: "sm", md: "md" }}
+            position="absolute"
+            left={side}
+            top={"50%"}
+            transform={"translate(50%, -50%)"}
+            zIndex={2}
+            display={{ base: "none", md: "block" }}
+            onClick={() => slider?.slickPrev()}
+            _hover={"background:#ffffff00"}
+            borderRadius={"40px"}
+            style={{ display: { base: "none", md: "" } }}
+          />
+          {/* Right Icon */}
+          <IconButton
+            aria-label="right-arrow"
+            icon={<ChevronRightIcon style={{ fontSize: 34 }} />}
+            background={transparentBtn ? "#ffffff00" : "#434242"}
+            color="#fff"
+            size={{ base: "sm", md: "md" }}
+            position="absolute"
+            right={side}
+            top={"50%"}
+            transform={"translate(-50%, -50%)"}
+            zIndex={2}
+            display={{ base: "none", md: "block" }}
+            onClick={() => slider?.slickNext()}
+            _hover={"background:#ffffff00 "}
+            borderRadius={"40px"}
+          />
+        </>
+      )}
       {/* Slider */}
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {banners.map((bannerData, index) => (
@@ -158,18 +158,33 @@ export default function Carousel({
               </Box>
             ) : (
               <Image
-                cursor={bannerData?.image_url ? "pointer" : ""}
+                cursor={
+                  bannerData?.category_id === null &&
+                  bannerData?.product_id === null
+                    ? ""
+                    : "pointer"
+                }
                 key={index}
                 src={bannerData.image}
                 alt={bannerData.alt_text}
-                onClick={() =>
-                  bannerData?.image_url
-                    ? navigate(`${bannerData?.image_url}`)
-                    : {}
-                }
-                //objectFit="fit"
+                onClick={() => {
+                  if (
+                    bannerData?.category_id !== null ||
+                    bannerData?.product_id !== null
+                  ) {
+                    if (bannerData?.category_id !== null) {
+                      navigate(
+                        `/shop?page=1&category=${bannerData?.category_id}`
+                      );
+                    } else {
+                      navigate(`/products/${bannerData?.product_id}`);
+                    }
+                  }
+                }}
+                objectFit="fit"
                 w="100%"
-                //h={{ base: "100%", md: `${desktopHeight}px` }}
+                // h="60%"
+                // h={{ base: "100%", md: `${desktopHeight}px` }}
               ></Image>
             )}
           </>

@@ -37,7 +37,7 @@ const SecondProductCard = ({ product }) => {
             src={product?.image1 ? product?.image1 : product?.image}
             alt={product.product_name}
             borderRadius="lg"
-            boxSize="150px"
+            boxSize="200px"
             objectFit={"contain"}
             mx="auto"
           />

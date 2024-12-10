@@ -311,7 +311,7 @@ const LoginModal = ({ isOpen, onClose, onOpen }) => {
                 onClose();
               }
             } else {
-              if (location.pathname === "/signup" || location.pathname ==="/reset-password" {
+              if (location.pathname === "/signup" || location.pathname ==="/reset-password") {
                 navigate("/", { replace: true });
                 onClose();
               } else {

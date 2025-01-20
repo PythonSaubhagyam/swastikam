@@ -35,6 +35,7 @@ import BreadCrumbCom from "../components/BreadCrumbCom";
 import { Select } from "chakra-react-select";
 import CapitalizeLetter from "../utils/CommanFunction";
 import ScrollToTop from "../components/ScrollToTop";
+import MetaTags from "../context/MetaTagsContext";
 
 // import Paginator from "../components/Paginator";
 
@@ -68,8 +69,8 @@ export default function Shop() {
   const prod_search = searchPar.get("search");
   const page = searchPar.get("page") ? searchPar.get("page") : 1;
   const [isMobile] = useMediaQuery("(max-width: 768px)");
-  const brand =searchPar.get("brand")
-  const brand_name =searchPar.get("brand_name")
+  const brand = searchPar.get("brand")
+  const brand_name = searchPar.get("brand_name")
   const { currentPage, setCurrentPage, pages } = usePagination({
     pagesCount: totalPages,
     limits: {
@@ -80,7 +81,7 @@ export default function Shop() {
   });
   const category_name = new URLSearchParams(search).get("category_name");
   const loginInfo = checkLogin();
-  
+
   let name = [
     localStorage.getItem("first_name"),
     localStorage.getItem("last_name"),
@@ -90,8 +91,8 @@ export default function Shop() {
     getFilter();
     const init = async () => {
       await CheckOrSetUDID();
-       };
-  
+    };
+
     init();
     getProducts(); // eslint-disable-next-line
   }, [page, categoryId, sortKey, prod_search, brand, tagWise, productFoam]);
@@ -102,18 +103,18 @@ export default function Shop() {
 
   async function getProducts(nextPage) {
     const checkOrSetUDIDInfo = await CheckOrSetUDID();
-  let headers = { visitor: CheckOrSetUDID()?.visitor_id };
- 
-  if (loginInfo.isLoggedIn === true) {
-    headers = { Authorization: `token ${loginInfo.token}` };
-  }
+    let headers = { visitor: CheckOrSetUDID()?.visitor_id };
+
+    if (loginInfo.isLoggedIn === true) {
+      headers = { Authorization: `token ${loginInfo.token}` };
+    }
     setLoading(true);
     try {
       let params = categoryId
         ? {
-            page: nextPage ? nextPage : page,
-            category_id: categoryId,
-          }
+          page: nextPage ? nextPage : page,
+          category_id: categoryId,
+        }
         : { page: nextPage ? nextPage : page };
 
       if (sortKey !== null) {
@@ -250,9 +251,9 @@ export default function Shop() {
 
     if (categoryId) {
       params.category = categoryId;
-      
+
     }
-    if(category_name){
+    if (category_name) {
       params.category_name = category_name;
     }
     if (searchPar.get("brand")) {
@@ -265,8 +266,8 @@ export default function Shop() {
     }
 
     setSearchParams(params);
-   
-  }, [sortKey,tagWise, productFoam]);
+
+  }, [sortKey, tagWise, productFoam]);
   // useEffect(() => {
   //   const filtered = categories.filter((item) => item.id === categoryId);
   //   setFilteredData(filtered);
@@ -281,9 +282,9 @@ export default function Shop() {
         category: categoryId,
         category_name: category_name,
       });
-    }  if(searchPar.get("brand")){
+    } if (searchPar.get("brand")) {
       params.brand = brand;
-        params.brand_name = brand_name;
+      params.brand_name = brand_name;
     } else {
       setSearchParams({
         page: nextPage,
@@ -305,8 +306,12 @@ export default function Shop() {
       setProducts(temp);
     }
   };
+  const pageUrl = "/shop";
+
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       <Navbar />
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Shop"} secondUrl={"/shop"} />
@@ -320,7 +325,7 @@ export default function Shop() {
           align="center"
           mb={6}
         >
-           {brand_name ? brand_name : category_name ? category_name :`All Products`}
+          {brand_name ? brand_name : category_name ? category_name : `All Products`}
         </Heading>
 
         <Flex
@@ -638,7 +643,7 @@ export default function Shop() {
           </div>
         </div> */}
       </Container>
-      <ScrollToTop/>
+      <ScrollToTop />
       <Footer />
     </>
   );

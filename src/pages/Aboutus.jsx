@@ -15,15 +15,20 @@ import {
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
+import MetaTags from "../context/MetaTagsContext";
 const Aboutus = () => {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
+  const pageUrl = "/about-us";
+
   return (
     <>
-       {IsMobileView !== "true" && <Navbar />}
+      <MetaTags pageUrl={pageUrl} />
 
-      <Container maxW={"container.xl"} py={1} px={0} position="relative"  centerContent>
+      {IsMobileView !== "true" && <Navbar />}
+
+      <Container maxW={"container.xl"} py={1} px={0} position="relative" centerContent>
         <Image src="./Swastikam/About us/Incense-banner.jpg" />
 
         <Text
@@ -37,7 +42,7 @@ const Aboutus = () => {
           left="50%"
           transform="translate(-50%, -50%)"
           zIndex="1"
-          // Optional: Add background to improve text readability
+        // Optional: Add background to improve text readability
         >
           About Us
         </Text>
@@ -82,12 +87,12 @@ const Aboutus = () => {
           </GridItem>
         </Grid>
       </Container>
-      <Container maxW={"6xl"} pt={7}  centerContent>
+      <Container maxW={"6xl"} pt={7} centerContent>
         <Box
           fontWeight={"400"}
           color={"text.200"}
-          fontSize={{md:36,base:24}}
-          
+          fontSize={{ md: 36, base: 24 }}
+
           textDecoration={"underline"}
           alignContent={"flex-start"}
         >
@@ -128,7 +133,7 @@ const Aboutus = () => {
         </Box>
       </Container>
 
-          <ScrollToTop/>
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
 
     </>

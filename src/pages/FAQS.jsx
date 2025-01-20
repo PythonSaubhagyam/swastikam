@@ -1,15 +1,16 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Accordion from "../components/Accordion";
-import { Container, Box, Text,Image } from "@chakra-ui/react";
+import { Container, Box, Text, Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
+import MetaTags from "../context/MetaTagsContext";
 
 export default function FAQS() {
   let { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
-   const IsMobileView = searchParams.get("mobile") ?? "false";
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
 
   const generalInformationData = [
     {
@@ -191,16 +192,19 @@ export default function FAQS() {
         'Please email the details of the order you wish to put to organic@suryan.in with the subject line "Bulk order."',
     },
   ];
+  const pageUrl = "/faq";
 
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       {IsMobileView !== "true" && <Navbar />}
 
 
       <Container maxW="container.xl">
         <BreadCrumbCom second={"FAQ"} secondUrl={"/faq"} />
       </Container>
-  <Container maxW={"container.xl"} py={1} px={0} position="relative">
+      <Container maxW={"container.xl"} py={1} px={0} position="relative">
         <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/faqs.jpg" />
 
         <Text
@@ -214,7 +218,7 @@ export default function FAQS() {
           left="50%"
           transform="translate(-50%, -50%)"
           zIndex="1"
-          // Optional: Add background to improve text readability
+        // Optional: Add background to improve text readability
         >
           FAQ
         </Text>
@@ -281,9 +285,9 @@ export default function FAQS() {
         </Box>
         <Accordion details={businessInquiryInformation} />
       </Container>
-      
 
-      <ScrollToTop/>
+
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>
   );

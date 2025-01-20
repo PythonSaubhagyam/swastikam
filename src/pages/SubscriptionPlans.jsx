@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
@@ -30,6 +30,7 @@ import Router from "../routes/routes";
 import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
 import LoginModal from "../components/LoginModal";
+import MetaTags from "../context/MetaTagsContext";
 
 const testimonials = [
   {
@@ -64,9 +65,12 @@ function SubscriptionPlans() {
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const pageUrl = "/subscription-plans";
 
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       {IsMobileView !== "true" && <Navbar />}
 
       {/* <Image src=""></Image> */}
@@ -246,7 +250,7 @@ function SubscriptionPlans() {
             Frequently Asked Questions
           </Heading>
 
-          <Accordion defaultIndex={[0]} pb={10} mx={"9%"}>
+          <Accordion allowToggle defaultIndex={[0]} pb={10} mx={"9%"}>
             <AccordionItem>
               <h2>
                 <AccordionButton bg={"brand.100"} _hover={{ bg: "brand.100" }}>
@@ -429,7 +433,7 @@ function SubscriptionPlans() {
                 <AccordionButton bg={"brand.100"} _hover={{ bg: "brand.100" }}>
                   <AccordionIcon color="white" />
                   <Box flex="1" textAlign="left" fontWeight="600" color="white">
-                    Is there a maximum limit on the discounts?
+                    What is the duration of the SOSE Elite membership plan?
                   </Box>
                 </AccordionButton>
               </h2>
@@ -439,22 +443,19 @@ function SubscriptionPlans() {
                 borderColor="gray.200"
                 borderBottom={"none"}
               >
-                Discounts are subject to a maximum capping for all users on the
-                SOSE Organic platform. SOSE Elite members get a discount on
-                products along with a higher maximum capping for these
-                discounts, as compared to non-SOSE Elite users. The maximum
-                capping at any given point in time is dependent on the platform
-                offer that is live.
+                Our membership plan for SOSE Elite members is structured over a period of one month.
+                Please note that we do not offer any discounts associated with this membership.
+
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
         </Box>
       </Container>
       {!checkLogin().isLoggedIn && (
-          <LoginModal
-            isOpen={isLoginModalOpen}
-            onClose={() => setIsLoginModalOpen(false)}
-          />)}
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />)}
       <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>

@@ -1,15 +1,16 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ReadMorePost from "../components/ReadMorePost";
-import { Box, Container, Text,Image } from "@chakra-ui/react";
+import { Box, Container, Text, Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
 
 import ScrollToTop from "../components/ScrollToTop";
+import MetaTags from "../context/MetaTagsContext";
 
 const Posts = [
   {
-    image:  "./Swastikam/Inspire Support/b2.jpg",
+    image: "./Swastikam/Inspire Support/b2.jpg",
     title: "Bansi Gir Gaushala",
     content: (
       <Text>
@@ -48,7 +49,7 @@ const Posts = [
     href: "https://www.girgauveda.com/",
   },
   {
-    image:"./Swastikam/Inspire Support/b5.jpg",
+    image: "./Swastikam/Inspire Support/b5.jpg",
     title: "Sidha Kisan Se",
     content: (
       <Text>
@@ -67,7 +68,7 @@ const Posts = [
     href: "https://www.sidhakisanse.in/",
   },
   {
-    image:"./Swastikam/Inspire Support/b3.jpg" ,
+    image: "./Swastikam/Inspire Support/b3.jpg",
     title: "SOSE",
     content:
       "We are an Ethical & Natural foods, natural home care and handmade personal care brand from the house of Suryan Organic. We were born out of the need to start at the beginning, to go to the roots of our problems. As an enterprise that is inspired by the mission of Bansi Gir Gaushala, our aim is to contribute to the revival of “Gau Sanskriti”, an ancient culture which placed the Gaumata (Cow as the Divine Mother) at the center of all economic, cultural and social activity. Agriculture is the foundation of such a culture, and it is with this paradigm that we seek to find solutions to the problems facing Bharat and humanity at large.",
@@ -85,11 +86,14 @@ const Posts = [
 export default function InspireSupport() {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
- const IsMobileView = searchParams.get("mobile") ?? "false";
+  const IsMobileView = searchParams.get("mobile") ?? "false";
+  const pageUrl = "/inspire-and-support";
 
   return (
     <>
-       {IsMobileView !== "true" && <Navbar />}
+      <MetaTags pageUrl={pageUrl} />
+
+      {IsMobileView !== "true" && <Navbar />}
 
 
       <Container maxW="container.xl">
@@ -99,16 +103,16 @@ export default function InspireSupport() {
         />{" "}
       </Container>
       <Container maxW={"container.xl"} mb={4} px={0} >
-      <Image src={ "./Swastikam/Inspire Support/inspire.jpg"} />
+        <Image src={"./Swastikam/Inspire Support/inspire.jpg"} />
       </Container>
       <Container maxW={"6xl"}  >
         {Posts.map((postDetails) => (
           <ReadMorePost postAlign="horizontal" postDetails={postDetails} />
         ))}
       </Container>
-    
 
-      <ScrollToTop/>
+
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>
   );

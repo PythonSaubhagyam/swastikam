@@ -41,6 +41,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import checkLogin from "../utils/checkLogin";
 import LoginModal from "../components/LoginModal";
 import Secondproductlistsection from "../components/secondproductlistsection";
+import { Helmet } from "react-helmet";
 
 
 
@@ -163,6 +164,14 @@ export default function Home() {
   console.log("best",BestsallerSection)
   return (
     <>
+    <Helmet>
+        <title>Swastikam - Home</title> {/* Set default title */}
+        <meta
+          name="description"
+          content=""
+        />
+        {/* You can add other meta tags for SEO */}
+      </Helmet>
       <Navbar />
       <Container maxW={"container.xl"} px={0}>
         {loading === true ? (

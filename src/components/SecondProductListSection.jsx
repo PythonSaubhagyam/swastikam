@@ -16,7 +16,7 @@ import {
   import "slick-carousel/slick/slick-theme.css";
   import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import arrow icons
   import ProductCard from "./ProductCard";
-import SecondProductCard from "./secondproductcard";
+import SecondProductCard from "./SecondProductCard";
   
   // Custom arrow component for previous button
   const PrevArrow = (props) => {

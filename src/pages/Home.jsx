@@ -7,7 +7,6 @@ import CarouselWithLinks from "../components/CarouselWithLinks";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ProductListSection from "../components/ProductListSection";
-import secondproductlistsection from "../components/secondproductlistsection";
 import {
   Container,
   Flex,
@@ -41,6 +40,13 @@ import ScrollToTop from "../components/ScrollToTop";
 import checkLogin from "../utils/checkLogin";
 import LoginModal from "../components/LoginModal";
 import Secondproductlistsection from "../components/secondproductlistsection";
+import { useDispatch, useSelector } from "react-redux"
+import {
+  Link as ReactRouterLink,
+} from "react-router-dom";
+import {
+  initializeAppData
+} from "../redux/slices/homeApi";
 
 
 
@@ -48,119 +54,56 @@ export default function Home() {
   const [isFullScreen] = useMediaQuery("(min-width: 768px)");
   const width = useBreakpointValue({ base: "100%", lg: "100%" });
   const height = useBreakpointValue({ base: "300", lg: "400" });
-  const [banners, setBanners] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [isMobile] = useMediaQuery("(max-width: 480px)");
-  const [homeData, setHome] = useState({});
-  const [sections, setSections] = useState([]);
-  const [AboutSection, setAboutSection] = useState([]);
-  const [ExplorSection, setExplorSection] = useState([]);
-  const [NonGmoSection, setNonGmoSection] = useState([]);
-  const [BestsallerSection, setBestsallerSection] = useState([]);
-  const [servicesSection, setServicesSection] = useState([]);
-  const [TherapiOliSection, setTherapiOliSection] = useState([]);
   const loginInfo = checkLogin();
-  const [statisticsSection, setStatisticsSection] = useState([]);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  // let [isFull] = useMediaQuery("(max-width:1920px)");
-  const [blogs, setBlogs] = useState([]);
   const [showPopup, setShowPopup] = useState(
     sessionStorage.getItem("hasShownPopup")
   );
+
+
+  const dispatch = useDispatch();
+  const {
+    banners,
+    upperSection,
+    loading,
+    blogs,
+    statisticsSection,
+    lowerSection,
+    hasFetched,
+  } = useSelector((state) => state.home);
+
+  const {
+    aboutSection,
+    explorSection,
+    therapiOliSection,
+    bestsallerSection,
+    nonGmoSection,
+  } = upperSection;
+
+  const {
+    awardsSection,
+    servicesSection,
+    availableSection,
+  } = lowerSection;
+
 
   const isMobiles = width <= 768;
   const navigate = useNavigate();
   useEffect(() => {
     CheckOrSetUDID();
-    //getHomePageData();
-    getBanners();
-    getBlogs();
-    getUpper();
-    getLowerSection();
-    getStatisticsSection();
     if (showPopup === null && !loginInfo.isLoggedIn) {
       setIsLoginModalOpen(true);
     }
   }, []);
 
-  async function getBanners() {
-    setLoading(true);
-    try {
-      const response = await client.get("/ecommerce/banners/?sequence=Upper");
-      if (response.data.status === true) {
-        setBanners(response?.data?.banner);
-      }
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.error("Error fetching data:", error);
+  useEffect(() => {
+    if (!hasFetched) {
+      dispatch(initializeAppData());
     }
-  }
+  }, [dispatch, hasFetched]);
 
 
-  async function getStatisticsSection() {
-    const params = {};
-    const response = await client.get("/statistics-section/", {
-      params: params,
-    });
-    if (response.data.status === true) {
-      setStatisticsSection(response?.data?.data);
-    }
-  }
-  async function getBlogs() {
-    const params = {};
-    const response = await client.get("/home/blogs/", {
-      params: params,
-    });
-    if (response.data.status === true) {
-      setBlogs(response.data.blogs);
-    }
-    setLoading(false);
-  }
-
-  async function getLowerSection() {
-    const params = {};
-    const response = await client.get("/lower-section/", {
-      params: params,
-    });
-    if (response.data.status === true) {
-      setSections(response.data.data);
-
-      const ourServicesSection = response.data.data?.filter(
-        (section) => section.id === 2
-      );
-      setServicesSection(ourServicesSection);
-    }
-  }
-
-  const getUpper = async () => {
-    const response = await client.get("/swastikam-section/?type=upper");
-    if (response.data.status === true) {
-      setSections(response.data.data);
-      const ourAboutSection = response.data.data?.filter(
-        (section) => section.id === 1
-      );
-      const ourExplorSection = response.data.data?.filter(
-        (section) => section.id === 2
-      );
-      const ourBestsallerSection = response.data.data?.filter(
-        (section) => section.id === 3
-      );
-      const ourTherapiOliSection = response.data.data?.filter(
-        (section) => section.id === 4
-      );
-      const ourNonGmoSection = response.data.data?.filter(
-        (section) => section.id === 5
-      );
-
-      setAboutSection(ourAboutSection);
-      setExplorSection(ourExplorSection);
-      setBestsallerSection(ourBestsallerSection);
-      setTherapiOliSection(ourTherapiOliSection);
-      setNonGmoSection(ourNonGmoSection);
-    }
-  };
-  console.log("best",BestsallerSection)
   return (
     <>
       <Navbar />
@@ -171,8 +114,8 @@ export default function Home() {
           <Carousel banners={banners?.length > 0 && banners} />
         )}
       </Container>
-      {AboutSection?.length > 0 &&
-        AboutSection[0]?.is_visible_on_website === true && (
+      {aboutSection?.length > 0 &&
+        aboutSection[0]?.is_visible_on_website === true && (
           <Container maxW={"6xl"} centerContent pt={12}>
             <Grid
               templateColumns={{
@@ -181,17 +124,17 @@ export default function Home() {
               }}
             >
               <GridItem>
-                <Image src={AboutSection[0]?.image} alt="" />
+                <Image src={aboutSection[0]?.image} alt="" />
               </GridItem>
               <GridItem>
-                <Heading> {AboutSection[0]?.label}</Heading>
+                <Heading> {aboutSection[0]?.label}</Heading>
                 <Text
                   color={"#000000"}
                   fontSize={"17px"}
                   align={"justify"}
                   mt={2}
                 >
-                  {AboutSection[0]?.description}
+                  {aboutSection[0]?.description}
                 </Text>
                 <Button
                   mt={6}
@@ -209,16 +152,16 @@ export default function Home() {
           </Container>
         )}
 
-      {ExplorSection?.length > 0 &&
-        ExplorSection[0]?.is_visible_on_website === true && (
+      {explorSection?.length > 0 &&
+        explorSection[0]?.is_visible_on_website === true && (
           <Container mt={12} centerContent>
-            <Image src={ExplorSection[0]?.image} alt="" />
-            <Image src={ExplorSection[0]?.images[0]?.image} alt="" w={"50%"} />
+            <Image src={explorSection[0]?.image} alt="" />
+            <Image src={explorSection[0]?.images[0]?.image} alt="" w={"50%"} />
           </Container>
         )}
       <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
         <LazyLoadImage
-          src={ExplorSection[0]?.images[1]?.image}
+          src={explorSection[0]?.images[1]?.image}
           alt=""
           style={{
             opacity: 1,
@@ -226,11 +169,11 @@ export default function Home() {
           }}
         />
       </Container>
-      {BestsallerSection?.length > 0 &&
-        BestsallerSection[0]?.is_visible_on_website === true && (
+      {bestsallerSection?.length > 0 &&
+        bestsallerSection[0]?.is_visible_on_website === true && (
           <>
-          <Container mt={12} mb={12} centerContent>
-            <Image src={BestsallerSection[0]?.image} alt="" />
+            <Container mt={12} mb={12} centerContent>
+              <Image src={bestsallerSection[0]?.image} alt="" />
             </Container>
             {/* <Container maxW={"container.xl"} px={"10%"} centerContent>
       <Grid templateColumns={{
@@ -256,11 +199,11 @@ export default function Home() {
             <Secondproductlistsection
               title=""
               //products={BestsallerSection[0]?.images?.length > 0 && BestsallerSection[0]?.images}
-              products={BestsallerSection[0]?.images}
+              products={bestsallerSection[0]?.images}
               loading={loading}
-              
+
             />
-         </>
+          </>
         )}
       {/* <ProductListSection
         title=""
@@ -268,8 +211,8 @@ export default function Home() {
         products={new_arrival_gir_gauveda}
       /> */}
 
-      {TherapiOliSection?.length > 0 &&
-        TherapiOliSection[0]?.is_visible_on_website === true && (
+      {therapiOliSection?.length > 0 &&
+        therapiOliSection[0]?.is_visible_on_website === true && (
           <Container maxW={"container.xl"} px={12} centerContent>
             <Grid
               templateColumns={{
@@ -278,11 +221,11 @@ export default function Home() {
               }}
             >
               <GridItem>
-                <Image src={TherapiOliSection[0]?.images[0]?.image} alt="" />
+                <Image src={therapiOliSection[0]?.images[0]?.image} alt="" />
               </GridItem>
 
               <GridItem>
-                <Image src={TherapiOliSection[0]?.images[1]?.image} alt="" />
+                <Image src={therapiOliSection[0]?.images[1]?.image} alt="" />
               </GridItem>
             </Grid>
           </Container>
@@ -320,7 +263,8 @@ export default function Home() {
                   />
                   <LinkOverlay
                     _hover={{ color: "bg.500" }}
-                    href={`/blogs/${blog.id}/`}
+                    as={ReactRouterLink}
+                    to={`/blogs/${blog.id}/`}
                   >
                     <Heading size="sm" fontWeight={500} m={2}>
                       {blog.title}
@@ -338,7 +282,8 @@ export default function Home() {
                     fontSize={"sm"}
                     fontWeight={600}
                     color={"brand.500"}
-                    onClick={() => navigate(`/blogs/${blog.id}/`)}
+                    as={ReactRouterLink}
+                    to={`/blogs/${blog.id}/`}
                     cursor={"pointer"}
                   >
                     Read more
@@ -354,16 +299,16 @@ export default function Home() {
       {/* <Testimonials /> */}
       {statisticsSection?.length > 0 && (
         <Container backgroundColor={"bg.100"} maxW={"container.xl"} py={2}>
-        <SimpleGrid
-          columns={[2, 3, null, 4]}
-          px={6}
-          maxW={"container.xl"}
-          my={6}
-          align="center"
-          spacingX={{ base: "10vw", md: "30px" }}
-          spacingY="40px"
-        >
-           {statisticsSection?.length > 0 &&
+          <SimpleGrid
+            columns={[2, 3, null, 4]}
+            px={6}
+            maxW={"container.xl"}
+            my={6}
+            align="center"
+            spacingX={{ base: "10vw", md: "30px" }}
+            spacingY="40px"
+          >
+            {statisticsSection?.length > 0 &&
               statisticsSection?.map((data) => (
                 <Stat>
                   <StatNumber fontSize={{ base: "3xl", md: "3xl" }}>
@@ -372,17 +317,17 @@ export default function Home() {
                   <StatHelpText color="gray.600">{data?.name}</StatHelpText>
                 </Stat>
               ))}
-         
-        </SimpleGrid>
-      </Container> )}
-      {NonGmoSection?.length > 0 &&
-        NonGmoSection[0]?.is_visible_on_website === true && (
+
+          </SimpleGrid>
+        </Container>)}
+      {nonGmoSection?.length > 0 &&
+        nonGmoSection[0]?.is_visible_on_website === true && (
           <Container
             pt={8}
             maxW={{ base: "100vw", md: "container.xl" }}
             centerContent
           >
-            <Image w={{ md: "65%" }} src={NonGmoSection[0]?.image} />
+            <Image w={{ md: "65%" }} src={nonGmoSection[0]?.image} />
           </Container>
         )}
       {servicesSection?.length > 0 &&

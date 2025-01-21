@@ -42,6 +42,7 @@ import checkLogin from "../utils/checkLogin";
 import LoginModal from "../components/LoginModal";
 import Secondproductlistsection from "../components/secondproductlistsection";
 import { Helmet } from "react-helmet";
+import MetaHome from "../components/MetaHome";
 
 
 
@@ -162,16 +163,18 @@ export default function Home() {
     }
   };
   console.log("best",BestsallerSection)
+   const pageUrl = "/"
   return (
     <>
-    <Helmet>
-        <title>Swastikam - Home</title> {/* Set default title */}
+    <MetaHome pageUrl={pageUrl} />
+    {/* <Helmet>
+        <title>Swastikam - Home</title> 
         <meta
           name="description"
           content=""
         />
-        {/* You can add other meta tags for SEO */}
-      </Helmet>
+        
+      </Helmet> */}
       <Navbar />
       <Container maxW={"container.xl"} px={0}>
         {loading === true ? (
